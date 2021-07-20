@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Products from "./products";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
 import { products, latest, featured } from "../variables";
+import * as rentalApi from "../apis/schedule";
+import useApi from "../hooks/useApi";
 
 const Index = () => {
+  const allProducts = useApi(rentalApi.getAllProducts);
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        allProducts.request();
+      } catch (_) {
+        console.log("producrs error", allProducts.error);
+      }
+    }
+    fetchProducts();
+    //eslint-disable-next-line
+  }, []);
+  console.log("producrs", allProducts.data);
   const [state] = React.useState({
     0: {
       items: 1,
@@ -42,9 +57,10 @@ const Index = () => {
                       nav
                       responsive={state}
                     >
-                      {latest.map((pro, index) => {
-                        return <Products {...pro} key={index} />;
-                      })}
+                      {allProducts.data &&
+                        allProducts.data.product.map((pro) => {
+                          return <Products {...pro} key={pro._id} />;
+                        })}
                     </OwlCarousel>
                   ) : (
                     <OwlCarousel

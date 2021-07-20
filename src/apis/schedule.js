@@ -27,33 +27,6 @@ export function userProfile() {
 export function addNewProduct(data) {
   return api.post("/product/add", data, fileConfig);
 }
-
-// export function fetchInactiveSchedules() {
-//   return api.get("/schedule/not-active");
-// }
-
-// export function fetchActiveSchdules() {
-//   return api.get("/schedule/running");
-// }
-
-// export function fetchStoppedSchedules() {
-//   return api.get("/schedule/stop");
-// }
-
-// export function createSchedule(scheduleFields) {
-//   return api.post("/schedule/new", {
-//     ...scheduleFields,
-//   });
-// }
-
-// export function startSchedule(scheduleId) {
-//   return api.post(`/schedule/${scheduleId}/start`, {});
-// }
-
-// export function stopSchedule(scheduleId) {
-//   return api.post(`/schedule/${scheduleId}/cancel`, {});
-// }
-
-// export function deleteSchedule(scheduleId) {
-//   return api.delete(`/schedule/${scheduleId}`);
-// }
+export function getAllProducts() {
+  return api.get("/product/user-get-all", config);
+}

@@ -1,23 +1,23 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Products = ({ discount, name, retail, offer, img }) => {
+const Products = ({ discount, companyName, pricePerDay, offer, image }) => {
   return (
     <>
-      <li key={name}>
+      <li>
         <div class="main">
-          <small class="discount">{discount}% OFF</small>
+          {discount && <small class="discount">{discount}% OFF</small>}
           <Link to="/ProductDetails">
             <figure>
-              <img src={img} alt="" />
+              <img src={image} alt="" />
             </figure>
           </Link>
           <div class="figcaption">
-            <h3>{name}</h3>
-            <span>Retail Price: ${retail}.00</span>
-            <span>
+            <h3>{companyName}</h3>
+            <span>Retail Price: ${pricePerDay}.00</span>
+            {/* <span>
               Offer Price:<small>${offer}.00</small>
-            </span>
+            </span> */}
             <Link>
               <i class="icon-shopping-cart"></i>Add to cart
             </Link>
