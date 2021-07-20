@@ -47,6 +47,11 @@ const Header = () => {
                 </>
               ) : (
                 <>
+                  {localStorage.getItem("isAdmin") === "false" && (
+                    <li>
+                      <Link to="/dashboard/vender">Become Vendor</Link>
+                    </li>
+                  )}
                   <li>
                     <Link to="/profile">Profile</Link>
                   </li>

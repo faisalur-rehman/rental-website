@@ -1,14 +1,58 @@
-import React from "react";
+import React, { useState } from "react";
 import Message from "./message/index";
 import Admin from "./admin";
 import Vender from "./vender";
 import Rent from "./rent";
 import AdminAll from "./adminAll";
-import Addnew from "./addnew";
 import VenderRent from "./venderRent";
 import "./dashboard.css";
 import { Link } from "react-router-dom";
+import AddNewProduct from "./addnew";
+
+import axios from "axios";
+const initialValues = {
+  companyName: "",
+  productTitle: "",
+  description: "",
+  pricePerDay: "",
+  address: "",
+  state: "",
+  isAvailable: "",
+  availableDate: "",
+};
+
 const SideBar = ({ show, type, handleHide }) => {
+  const [image, setImage] = useState();
+  const [response, setResponse] = useState("");
+
+  async function handleSubmit({ formValues }) {
+    let formData = new FormData();
+    formData.append("image", image);
+    formData.append("companyName", formValues.companyName);
+    formData.append("productTitle", formValues.productTitle);
+    formData.append("description", formValues.description);
+    formData.append("pricePerDay", formValues.pricePerDay);
+    formData.append("address", formValues.address);
+    formData.append("state", formValues.state);
+    formData.append("isAvailable", formValues.isAvailable);
+    formData.append("availableDate", formValues.availableDate);
+    try {
+      const { data } = await axios.post(
+        `https://multivendor-ecommerce-restapi.herokuapp.com/product/add`,
+        formData,
+        {
+          headers: {
+            Authorization: localStorage.getItem("token"),
+            "Content-Type": `multipart/form-data`,
+          },
+        }
+      );
+      console.log(data);
+      setResponse(data.message);
+    } catch (error) {
+      console.log(error.response);
+    }
+  }
   const [act, setAct] = React.useState({
     main: true,
     msg: false,
@@ -107,7 +151,18 @@ const SideBar = ({ show, type, handleHide }) => {
       )}
       {act.msg ? <Message /> : ""}
       {act.all ? <AdminAll handleClick={handleClick} /> : ""}
-      {act.add ? <Addnew /> : ""}
+      {act.add ? (
+        <>
+          <AddNewProduct
+            initialValues={initialValues}
+            onSubmit={handleSubmit}
+            setImage={setImage}
+          />
+          <p style={{ width: "34%", margin: "auto" }}>{response}</p>
+        </>
+      ) : (
+        ""
+      )}
       {act.rent ? <VenderRent handleClick={handleClick} /> : ""}
     </>
   );

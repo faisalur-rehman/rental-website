@@ -6,6 +6,13 @@ const config = {
   },
 };
 
+const fileConfig = {
+  headers: {
+    Authorization: localStorage.getItem("token"),
+    "Content-Type": "multipart/form-data",
+  },
+};
+
 export function signUp(data) {
   return api.post("/user/register", { ...data });
 }
@@ -15,6 +22,10 @@ export function signIn(data) {
 }
 export function userProfile() {
   return api.get("/user/profile", config);
+}
+
+export function addNewProduct(data) {
+  return api.post("/product/add", data, fileConfig);
 }
 
 // export function fetchInactiveSchedules() {

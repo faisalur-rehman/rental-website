@@ -17,6 +17,8 @@ const SignIn = () => {
       const { data } = await request(formValues);
       console.log("data", data);
       localStorage.setItem("token", data.token);
+      localStorage.setItem("id", data._id);
+      localStorage.setItem("isAdmin", data.isAdmin);
       history.push("/landing");
     } catch (_) {}
   }
