@@ -1,0 +1,17 @@
+.foot {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    height: 44px;
+    font-family: 'Source Sans Pro',
+    helvetica,
+    sans-serif;
+    background: #c43333;
+    color: white;
+    font-size: 17px;
+    position: fixed;
+    left: 0;
+    bottom: 0;
+}
