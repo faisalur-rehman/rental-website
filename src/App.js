@@ -10,6 +10,7 @@ import CheckOut from "./checkOut";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignUp from "./signUpIN/SignUp/SignUp";
 import SignIn from "./signUpIN/SignIn/SignIn";
+import Profile from "./Profile/Profile";
 function App() {
   return (
     <>
@@ -28,6 +29,11 @@ function App() {
           <Route exact path="/SignUp">
             <Head />
             <SignUp />
+            <Foot />
+          </Route>
+          <Route exact path="/profile">
+            <Head />
+            <Profile />
             <Foot />
           </Route>
           <Route exact path="/ProductDetails">

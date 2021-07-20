@@ -48,7 +48,7 @@ const Header = () => {
               ) : (
                 <>
                   <li>
-                    <Link to="/SignIn">Profile</Link>
+                    <Link to="/profile">Profile</Link>
                   </li>
                   <li>
                     <Link onClick={handleLogout}>Logout</Link>
