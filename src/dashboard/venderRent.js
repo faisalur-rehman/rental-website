@@ -38,7 +38,7 @@ const VenderRent = ({ handleClick }) => {
                     <th>Vender Name</th>
                     <th>Price</th>
                     <th>Renting Date</th>
-                    <th>Renterning Date</th>
+                    <th>Returning Date</th>
                   </tr>
                   {vendorRentHistory.data &&
                     vendorRentHistory.data.rentalHistory.map((prod) => (

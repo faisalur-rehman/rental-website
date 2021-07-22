@@ -39,3 +39,6 @@ export function rentProduct(data) {
 export function getVendorRentHistory() {
   return api.get("/rental-history/vendor-get", config);
 }
+export function getRenterRentHistory() {
+  return api.get("/rental-history/renter-get", config);
+}
