@@ -40,25 +40,27 @@ const VenderRent = ({ handleClick }) => {
                     <th>Renting Date</th>
                     <th>Returning Date</th>
                   </tr>
-                  {vendorRentHistory.data &&
-                    vendorRentHistory.data.rentalHistory.map((prod) => (
-                      <tr key={prod._id}>
-                        <td>{prod._id}</td>
-                        <td>{prod.renterName}</td>
-                        <td>{prod.vendorName}</td>
-                        <td>${prod.totalPrice}</td>
-                        <td>
-                          {new Date(prod.rentingDate).toLocaleDateString(
-                            "en-GB"
-                          )}
-                        </td>
-                        <td>
-                          {new Date(prod.returningDate).toLocaleDateString(
-                            "en-GB"
-                          )}
-                        </td>
-                      </tr>
-                    ))}
+                  <tbody>
+                    {vendorRentHistory.data &&
+                      vendorRentHistory.data.rentalHistory.map((prod) => (
+                        <tr key={prod._id}>
+                          <td>{prod._id}</td>
+                          <td>{prod.renterName}</td>
+                          <td>{prod.vendorName}</td>
+                          <td>${prod.totalPrice}</td>
+                          <td>
+                            {new Date(prod.rentingDate).toLocaleDateString(
+                              "en-GB"
+                            )}
+                          </td>
+                          <td>
+                            {new Date(prod.returningDate).toLocaleDateString(
+                              "en-GB"
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
                 </table>
               </div>
             </div>

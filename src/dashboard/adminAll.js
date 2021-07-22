@@ -1,6 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
+import useApi from "../hooks/useApi";
+import * as rentalApi from "../apis/schedule";
 const AdminAll = ({ handleClick }) => {
+  const allProducts = useApi(rentalApi.adminAllProducts);
+  useEffect(() => {
+    async function fetchProduct() {
+      await allProducts.request();
+    }
+    fetchProduct();
+    //eslint-disable-next-line
+  }, []);
+
+  console.log("all retnal", allProducts.data);
+  console.log("all retnal error", allProducts.error);
+
   return (
     <>
       <section class="dashboard">
@@ -21,13 +35,6 @@ const AdminAll = ({ handleClick }) => {
                   <div class="list_selecter">
                     <select class="form-control" name="state" id="maxRows">
                       <option value="5000">Show ALL Rows</option>
-                      <option value="5">5</option>
-                      <option value="10">10</option>
-                      <option value="15">15</option>
-                      <option value="20">20</option>
-                      <option value="50">50</option>
-                      <option value="70">70</option>
-                      <option value="100">100</option>
                     </select>
                   </div>
                   <div class="show_product">
@@ -39,7 +46,7 @@ const AdminAll = ({ handleClick }) => {
                         <th>Delete Product</th>
                       </tr>
 
-                      <tr>
+                      {/* <tr>
                         <td></td>
                         <td>
                           <Link onclick="view_product_detail()">
@@ -56,27 +63,31 @@ const AdminAll = ({ handleClick }) => {
                             <i class="fas fa-trash-alt"></i>
                           </Link>
                         </td>
-                      </tr>
+                      </tr> */}
+                      <tbody>
+                        {allProducts.data &&
+                          allProducts.data.product.map((prod) => (
+                            <tr key={prod._id}>
+                              <td>{prod._id}</td>
+                              <td>
+                                <Link onclick="view_product_detail()">
+                                  <i class="fas fa-eye"></i>
+                                </Link>
+                              </td>
+                              <td>
+                                <Link onclick="edit_product()">
+                                  <i class="fa fa-edit"></i>
+                                </Link>
+                              </td>
+                              <td>
+                                <Link>
+                                  <i class="fas fa-trash-alt"></i>
+                                </Link>
+                              </td>
+                            </tr>
+                          ))}
+                      </tbody>
                     </table>
-                  </div>
-                  <div class="pagination-container">
-                    <nav>
-                      <ul class="pagination">
-                        <li data-page="prev">
-                          <span>
-                            {" "}
-                            &lt; <span class="sr-only">(current)</span>
-                          </span>
-                        </li>
-
-                        <li data-page="next" id="prev">
-                          <span>
-                            {" "}
-                            &gt; <span class="sr-only">(current)</span>
-                          </span>
-                        </li>
-                      </ul>
-                    </nav>
                   </div>
                 </div>
               </div>
