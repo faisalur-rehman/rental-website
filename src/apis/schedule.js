@@ -33,3 +33,9 @@ export function getAllProducts() {
 export function getSingleProduct(id) {
   return api.post("/product/get-single", { productId: id }, config);
 }
+export function rentProduct(data) {
+  return api.post("/rental-history/add", { ...data }, config);
+}
+export function getVendorRentHistory() {
+  return api.get("/rental-history/vendor-get", config);
+}

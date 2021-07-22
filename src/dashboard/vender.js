@@ -1,18 +1,32 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./dashboard.css";
 import { Link } from "react-router-dom";
+import useApi from "../hooks/useApi";
+import * as rentalApi from "../apis/schedule";
 const Vender = () => {
+  const vendorRentHistory = useApi(rentalApi.getVendorRentHistory);
+  useEffect(() => {
+    async function fetchProduct() {
+      await vendorRentHistory.request();
+    }
+    fetchProduct();
+    //eslint-disable-next-line
+  }, []);
+
+  console.log("history data", vendorRentHistory.data);
+  console.log("history error", vendorRentHistory.error);
+
   return (
     <>
-      <div class="body">
-        <div class="container">
-          <div class="dashboard_window" id="dashboard_window">
-            <div class="dashboard_form">
-              <div class="total_income">
-                <div class="admin_income">
+      <div className="body">
+        <div className="container">
+          <div className="dashboard_window" id="dashboard_window">
+            <div className="dashboard_form">
+              <div className="total_income">
+                <div className="admin_income">
                   <h3>Total income</h3>
                   <strong>$1.5</strong>
-                  <div class="submit_button">
+                  <div className="submit_button">
                     <button
                       style={{ padding: 5, width: "100%", margin: "8px auto" }}
                     >
@@ -22,66 +36,66 @@ const Vender = () => {
                 </div>
               </div>
               <strong>All Product:</strong>
-              <div class="list_selecter">
-                <select class="form-control" name="state" id="maxRows">
+              <div className="list_selecter">
+                <select className="form-control" name="state" id="maxRows">
                   <option value="5000">Show ALL Rows</option>
-                  <option value="5">5</option>
+                  {/* <option value="5">5</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
                   <option value="20">20</option>
                   <option value="50">50</option>
                   <option value="70">70</option>
-                  <option value="100">100</option>
+                  <option value="100">100</option> */}
                 </select>
               </div>
-              <div class="show_product">
+              <div className="show_product">
                 <table id="table-id">
                   <tr>
                     <th>Product Name</th>
-                    <th>View Product</th>
-                    <th>Edit Detail</th>
-                    <th>Delete Product</th>
-                    <th>Availability</th>
+                    <th>Renting Date</th>
+                    <th>Returning Date</th>
+                    <th>Total Price</th>
+                    <th>Shipping Address</th>
                   </tr>
-
-                  <tr>
-                    <td></td>
-                    <td>
-                      <Link>
-                        <i class="fas fa-eye"></i>
-                      </Link>
-                    </td>
-                    <td>
-                      <i class="fa fa-edit"></i>
-                    </td>
-                    <td>
-                      <Link>
-                        <i class="fas fa-trash-alt"></i>
-                      </Link>
-                    </td>
-                    <td></td>
-                  </tr>
+                  {vendorRentHistory.data &&
+                    vendorRentHistory.data.rentalHistory.map((prod) => (
+                      <tr>
+                        <td>{prod._id}</td>
+                        <td>
+                          {new Date(prod.rentingDate).toLocaleDateString(
+                            "en-GB"
+                          )}
+                        </td>
+                        <td>
+                          {new Date(prod.returningDate).toLocaleDateString(
+                            "en-GB"
+                          )}
+                        </td>
+                        <td>${prod.totalPrice}</td>
+                        <td>{prod.shippingAddress}</td>
+                      </tr>
+                    ))}
                 </table>
               </div>
-              <div class="pagination-container">
+              {/* <div className="pagination-container">
                 <nav>
-                  <ul class="pagination">
+                  <ul className="pagination">
                     <li data-page="prev">
                       <span>
                         {" "}
-                        &lt; <span class="sr-only">(current)</span>
+                        &lt; <span className="sr-only">(current)</span>
                       </span>
                     </li>
 
                     <li data-page="next" id="prev">
                       <span>
                         {" "}
-                        &gt; <span class="sr-only">(current)</span>
+                        &gt; <span className="sr-only">(current)</span>
                       </span>
                     </li>
                   </ul>
                 </nav>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
