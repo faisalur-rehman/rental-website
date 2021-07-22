@@ -39,42 +39,42 @@ const Vender = () => {
               <div className="list_selecter">
                 <select className="form-control" name="state" id="maxRows">
                   <option value="5000">Show ALL Rows</option>
-                  {/* <option value="5">5</option>
+                  <option value="5">5</option>
                   <option value="10">10</option>
                   <option value="15">15</option>
                   <option value="20">20</option>
                   <option value="50">50</option>
                   <option value="70">70</option>
-                  <option value="100">100</option> */}
+                  <option value="100">100</option>
                 </select>
               </div>
               <div className="show_product">
                 <table id="table-id">
                   <tr>
                     <th>Product Name</th>
-                    <th>Renting Date</th>
-                    <th>Returning Date</th>
-                    <th>Total Price</th>
-                    <th>Shipping Address</th>
+                    <th>View Product</th>
+                    <th>Edit Detail</th>
+                    <th>Delete Product</th>
+                    <th>Availability</th>
                   </tr>
-                  {vendorRentHistory.data &&
-                    vendorRentHistory.data.rentalHistory.map((prod) => (
-                      <tr>
-                        <td>{prod._id}</td>
-                        <td>
-                          {new Date(prod.rentingDate).toLocaleDateString(
-                            "en-GB"
-                          )}
-                        </td>
-                        <td>
-                          {new Date(prod.returningDate).toLocaleDateString(
-                            "en-GB"
-                          )}
-                        </td>
-                        <td>${prod.totalPrice}</td>
-                        <td>{prod.shippingAddress}</td>
-                      </tr>
-                    ))}
+
+                  <tr>
+                    <td></td>
+                    <td>
+                      <Link>
+                        <i className="fas fa-eye"></i>
+                      </Link>
+                    </td>
+                    <td>
+                      <i className="fa fa-edit"></i>
+                    </td>
+                    <td>
+                      <Link>
+                        <i className="fas fa-trash-alt"></i>
+                      </Link>
+                    </td>
+                    <td></td>
+                  </tr>
                 </table>
               </div>
               {/* <div className="pagination-container">
