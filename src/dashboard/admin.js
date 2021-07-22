@@ -1,6 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
+import useApi from "../hooks/useApi";
+import * as rentalApi from "../apis/schedule";
 
 const Admin = () => {
+  const allRentHistory = useApi(rentalApi.getAllRentHistory);
+  useEffect(() => {
+    async function fetchProduct() {
+      await allRentHistory.request();
+    }
+    fetchProduct();
+    //eslint-disable-next-line
+  }, []);
+
   return (
     <>
       <div class="body">
@@ -17,13 +28,6 @@ const Admin = () => {
               <div class="list_selecter">
                 <select class="form-control" name="state" id="maxRows">
                   <option value="5000">Show ALL Rows</option>
-                  <option value="5">5</option>
-                  <option value="10">10</option>
-                  <option value="15">15</option>
-                  <option value="20">20</option>
-                  <option value="50">50</option>
-                  <option value="70">70</option>
-                  <option value="100">100</option>
                 </select>
               </div>
               <div class="show_product">
@@ -36,35 +40,28 @@ const Admin = () => {
                     <th>Renting Date</th>
                     <th>Renterning Date</th>
                   </tr>
-                  <tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
+                  <tbody>
+                    {allRentHistory.data &&
+                      allRentHistory.data.rentalHistory.map((prod) => (
+                        <tr key={prod._id}>
+                          <td>{prod._id}</td>
+                          <td>{prod.renterName}</td>
+                          <td>{prod.vendorName}</td>
+                          <td>${prod.totalPrice}</td>
+                          <td>
+                            {new Date(prod.rentingDate).toLocaleDateString(
+                              "en-GB"
+                            )}
+                          </td>
+                          <td>
+                            {new Date(prod.returningDate).toLocaleDateString(
+                              "en-GB"
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                  </tbody>
                 </table>
-              </div>
-
-              <div class="pagination-container">
-                <nav>
-                  <ul class="pagination">
-                    <li data-page="prev">
-                      <span>
-                        {" "}
-                        &lt; <span class="sr-only">(current)</span>
-                      </span>
-                    </li>
-
-                    <li data-page="next" id="prev">
-                      <span>
-                        {" "}
-                        &gt; <span class="sr-only">(current)</span>
-                      </span>
-                    </li>
-                  </ul>
-                </nav>
               </div>
             </div>
           </div>

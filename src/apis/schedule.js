@@ -30,6 +30,9 @@ export function addNewProduct(data) {
 export function getAllProducts() {
   return api.get("/product/user-get-all", config);
 }
+export function adminAllProducts() {
+  return api.get("/product/admin-get-all", config);
+}
 export function getSingleProduct(id) {
   return api.post("/product/get-single", { productId: id }, config);
 }
@@ -41,4 +44,7 @@ export function getVendorRentHistory() {
 }
 export function getRenterRentHistory() {
   return api.get("/rental-history/renter-get", config);
+}
+export function getAllRentHistory() {
+  return api.get("/rental-history/admin-get", config);
 }

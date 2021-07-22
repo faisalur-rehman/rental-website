@@ -13,9 +13,6 @@ const Rent = () => {
     //eslint-disable-next-line
   }, []);
 
-  console.log("retnal", rentalRentHistory.data);
-  console.log("retnal error", rentalRentHistory.error);
-
   return (
     <>
       <div className="body">
