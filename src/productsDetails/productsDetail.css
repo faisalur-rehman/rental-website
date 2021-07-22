@@ -241,7 +241,7 @@ grid-column-gap: 6px;*/
 
 #produt-detail-extra .main .cart-part {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   width: 100%;
   font-family: "Open Sans", sans-serif;
   justify-content: space-between;

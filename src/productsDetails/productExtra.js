@@ -22,7 +22,7 @@ const ProductExtra = ({ productId }) => {
 
             <div class="cart-part">
               <div style={{ display: "flex", marginBottom: 10 }}>
-                <div class="search-icon">
+                {/* <div class="search-icon">
                   <input
                     class="location"
                     type="date"
@@ -30,7 +30,6 @@ const ProductExtra = ({ productId }) => {
                     onfocus="(this.type='date')"
                     onblur="(this.type='text')"
                   ></input>
-                  {/* <i class="far fa-calendar-minus" id="cancle"></i> */}
                 </div>
                 <div class="search-icon">
                   <input
@@ -40,14 +39,13 @@ const ProductExtra = ({ productId }) => {
                     onfocus="(this.type='date')"
                     onblur="(this.type='text')"
                   ></input>
-                  {/* <i class="far fa-calendar-minus" id="cancle"></i> */}
-                </div>
+                </div> */}
               </div>
               <div>
                 <div class="cart-box">
-                  <Link className="aa" to="/ProductDetails">
+                  {/* <Link className="aa" to="/ProductDetails">
                     Add to cart
-                  </Link>
+                  </Link> */}
                   <Link
                     className="aa"
                     to={`/ProductDetails/CheckOut/${productId}`}

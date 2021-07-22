@@ -1,57 +1,33 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./checkOut.css";
 import image from "../image/new-one.jpg";
+import { useParams } from "react-router-dom";
+import useApi from "../hooks/useApi";
+import * as rentalApi from "../apis/schedule";
+import AppForm from "../AppForm/AppForm";
+import { Field } from "formik";
 
-const Index = () => {
+export default function CheckoutForm({ initialValues, onSubmit }) {
+  const singleProduct = useApi(rentalApi.getSingleProduct);
+  const { id } = useParams();
+  useEffect(() => {
+    async function fetchProduct() {
+      await singleProduct.request(id);
+    }
+    fetchProduct();
+    //eslint-disable-next-line
+  }, []);
+
   return (
     <>
       <section class="single_product">
         <div class="container">
           <span>Shopping Cart:</span>
-          <div class="checkout_info">
-            <div class="checkout_grid product_img">
-              <figure>
-                <img src={image} alt="" />
-                <figcaption>
-                  <p>
-                    Rent a Aputure LS 600d Pro Light Storm Daylight LED Light
-                  </p>
-                </figcaption>
-              </figure>
-            </div>
-            <div class="checkout_grid">
-              <form>
-                <label>QNT</label>
-                <input type="number"></input>
-              </form>
-            </div>
-            <div class="checkout_grid">
-              <form>
-                <label>price</label>
-                <strong>$300</strong>
-                <div class="search-icon">
-                  <input
-                    class="location"
-                    type="text"
-                    placeholder="start date"
-                    onfocus="(this.type='date')"
-                    onblur="(this.type='text')"
-                  />
-                  <i class="far fa-calendar-minus" id="cancle"></i>
-                </div>
-                <div class="search-icon">
-                  <input
-                    class="location"
-                    type="text"
-                    placeholder="End date"
-                    onfocus="(this.type='date')"
-                    onblur="(this.type='text')"
-                  ></input>
-                  <i class="far fa-calendar-minus" id="cancle"></i>
-                </div>
-              </form>
-            </div>
-          </div>
+          {singleProduct.data && (
+            <AppForm initialValues={initialValues} handleSubmit={onSubmit}>
+              <FormFields singleProduct={singleProduct.data} />
+            </AppForm>
+          )}
         </div>
       </section>
 
@@ -63,25 +39,73 @@ const Index = () => {
                 <h4>Total Amount</h4>
                 <strong>$300</strong>{" "}
               </div>
-              <form>
-                <div class="payment_method">
-                  <input type="radio" name="payment" value="cash" />{" "}
-                  <label>Cash On Delivery</label>
-                </div>
-                <div class="payment_method">
-                  <input type="radio" name="payment" value="strip" />{" "}
-                  <label>Strip method</label>
-                </div>
-                <div class="checkout-button">
-                  <button type="button">Check Out</button>
-                </div>
-              </form>
+              {/* <form> */}
+              <div class="payment_method">
+                <input type="radio" name="payment" value="cash" />{" "}
+                <label>Cash On Delivery</label>
+              </div>
+              <div class="payment_method">
+                <input type="radio" name="payment" value="strip" />{" "}
+                <label>Strip method</label>
+              </div>
+              <div class="checkout-button">
+                <button type="button">Check Out</button>
+              </div>
+              {/* </form> */}
             </div>
           </div>
         </div>
       </div>
     </>
   );
-};
+}
 
-export default Index;
+function FormFields({ singleProduct }) {
+  return (
+    <>
+      {singleProduct && (
+        <div class="checkout_info">
+          <div class="checkout_grid product_img">
+            <figure>
+              <img src={image} alt="" />
+              <figcaption>
+                <p>{singleProduct.product.description}</p>
+              </figcaption>
+            </figure>
+          </div>
+          <div class="checkout_grid">
+            <label>QNT</label>
+            <br />
+            <Field
+              name="shippingAddress"
+              placeholder="Enter Shipping Address"
+            />
+            <br />
+            <Field name="shippingState" placeholder="Enter Shipping State" />
+          </div>
+          <div class="checkout_grid">
+            <label>Price Per Day: </label>
+            <strong>${singleProduct.product.pricePerDay}</strong>
+            <div class="search-icon">
+              <Field
+                name="rentingDate"
+                class="location"
+                type="date"
+                placeholder="Start date"
+              />
+            </div>
+            <div class="search-icon">
+              <Field
+                name="returningDate"
+                class="location"
+                type="date"
+                placeholder="End date"
+              />
+            </div>
+          </div>
+        </div>
+      )}
+      <button type="submit">Submit</button>
+    </>
+  );
+}

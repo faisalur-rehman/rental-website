@@ -4,12 +4,13 @@ import Footer from "./footer";
 import Head from "./signUpIN/head";
 import Dashboard from "./dashboard";
 import Foot from "./signUpIN/foot";
-import CheckOut from "./checkOut";
+// import CheckOut from "./checkOut";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import SignUp from "./signUpIN/SignUp/SignUp";
 import SignIn from "./signUpIN/SignIn/SignIn";
 import Profile from "./Profile/Profile";
 import SingleProduct from "./productsDetails/SingleProduct/SingleProduct";
+import Checkout from "./checkOut/Checkout";
 function App() {
   return (
     <>
@@ -39,7 +40,8 @@ function App() {
 
           <Route exact path="/ProductDetails/CheckOut/:id">
             <Head />
-            <CheckOut />
+            {/* <CheckOut /> */}
+            <Checkout />
             <Footer />
           </Route>
           <Route exact path="/dashboard/admin">
