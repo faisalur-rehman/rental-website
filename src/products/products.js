@@ -1,20 +1,22 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Products = ({ discount, companyName, pricePerDay, offer, image }) => {
+const Products = (props) => {
   return (
     <>
       <li>
         <div class="main">
-          {discount && <small class="discount">{discount}% OFF</small>}
-          <Link to="/ProductDetails">
+          {props.discount && (
+            <small class="discount">{props.discount}% OFF</small>
+          )}
+          <Link to={`/ProductDetails/${props._id}`}>
             <figure>
-              <img src={image} alt="" />
+              <img src={props.image} alt="" />
             </figure>
           </Link>
           <div class="figcaption">
-            <h3>{companyName}</h3>
-            <span>Retail Price: ${pricePerDay}.00</span>
+            <h3>{props.companyName}</h3>
+            <span>Retail Price: ${props.pricePerDay}.00</span>
             {/* <span>
               Offer Price:<small>${offer}.00</small>
             </span> */}

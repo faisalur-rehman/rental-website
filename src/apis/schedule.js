@@ -30,3 +30,6 @@ export function addNewProduct(data) {
 export function getAllProducts() {
   return api.get("/product/user-get-all", config);
 }
+export function getSingleProduct(id) {
+  return api.post("/product/get-single", { productId: id }, config);
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import image from "../image/new-one.jpg";
-const ProductExtra = () => {
+const ProductExtra = ({ productId }) => {
   return (
     <>
       <section id="produt-detail-extra">
@@ -21,35 +21,40 @@ const ProductExtra = () => {
             </div>
 
             <div class="cart-part">
-              <form>
+              <div style={{ display: "flex", marginBottom: 10 }}>
                 <div class="search-icon">
                   <input
                     class="location"
-                    type="text"
-                    placeholder="start date"
+                    type="date"
+                    placeholder="Start date"
                     onfocus="(this.type='date')"
                     onblur="(this.type='text')"
                   ></input>
-                  <i class="far fa-calendar-minus" id="cancle"></i>
+                  {/* <i class="far fa-calendar-minus" id="cancle"></i> */}
                 </div>
                 <div class="search-icon">
                   <input
                     class="location"
-                    type="text"
+                    type="date"
                     placeholder="End date"
                     onfocus="(this.type='date')"
                     onblur="(this.type='text')"
                   ></input>
-                  <i class="far fa-calendar-minus" id="cancle"></i>
+                  {/* <i class="far fa-calendar-minus" id="cancle"></i> */}
                 </div>
-              </form>
-              <div class="cart-box">
-                <Link className="aa" to="/ProductDetails">
-                  Add to cart
-                </Link>
-                <Link className="aa" to="/ProductDetails/CheckOut">
-                  Check Out
-                </Link>
+              </div>
+              <div>
+                <div class="cart-box">
+                  <Link className="aa" to="/ProductDetails">
+                    Add to cart
+                  </Link>
+                  <Link
+                    className="aa"
+                    to={`/ProductDetails/CheckOut/${productId}`}
+                  >
+                    Check Out
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
