@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./checkOut.css";
 import image from "../image/new-one.jpg";
 import { useParams } from "react-router-dom";
@@ -7,7 +7,13 @@ import * as rentalApi from "../apis/schedule";
 import AppForm from "../AppForm/AppForm";
 import { Field } from "formik";
 
-export default function CheckoutForm({ initialValues, onSubmit }) {
+export default function CheckoutForm({
+  initialValues,
+  onSubmit,
+  totalDays,
+  setPaymentMethod,
+}) {
+  const [payment, setPayment] = useState();
   const singleProduct = useApi(rentalApi.getSingleProduct);
   const { id } = useParams();
   useEffect(() => {
@@ -18,6 +24,13 @@ export default function CheckoutForm({ initialValues, onSubmit }) {
     //eslint-disable-next-line
   }, []);
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    setPaymentMethod(payment);
+  }
+
+  // console.log("single", singleProduct);
+  // console.log("totalDays", totalDays);
   return (
     <>
       <section class="single_product">
@@ -37,21 +50,36 @@ export default function CheckoutForm({ initialValues, onSubmit }) {
             <div class="checkout_method">
               <div class="price">
                 <h4>Total Amount</h4>
-                <strong>$300</strong>{" "}
+                <strong>
+                  $
+                  {singleProduct.data &&
+                    totalDays &&
+                    singleProduct.data.product.pricePerDay * totalDays}
+                </strong>{" "}
               </div>
-              {/* <form> */}
-              <div class="payment_method">
-                <input type="radio" name="payment" value="cash" />{" "}
-                <label>Cash On Delivery</label>
-              </div>
-              <div class="payment_method">
-                <input type="radio" name="payment" value="strip" />{" "}
-                <label>Strip method</label>
-              </div>
-              <div class="checkout-button">
-                <button type="button">Check Out</button>
-              </div>
-              {/* </form> */}
+              <form onSubmit={handleSubmit}>
+                <div class="payment_method">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="cash"
+                    onChange={() => setPayment("cash")}
+                  />{" "}
+                  <label>Cash On Delivery</label>
+                </div>
+                <div class="payment_method">
+                  <input
+                    type="radio"
+                    name="payment"
+                    value="stripe"
+                    onChange={() => setPayment("stripe")}
+                  />{" "}
+                  <label>Stripe method</label>
+                </div>
+                <div class="checkout-button">
+                  <button type="submit">Check Out</button>
+                </div>
+              </form>
             </div>
           </div>
         </div>
@@ -64,8 +92,8 @@ function FormFields({ singleProduct }) {
   return (
     <>
       {singleProduct && (
-        <div class="checkout_info">
-          <div class="checkout_grid product_img">
+        <div className="checkout_info">
+          <div className="checkout_grid product_img">
             <figure>
               <img src={image} alt="" />
               <figcaption>
@@ -73,15 +101,20 @@ function FormFields({ singleProduct }) {
               </figcaption>
             </figure>
           </div>
-          <div class="checkout_grid">
-            <label>QNT</label>
+          <div className="checkout_grid">
+            <label>Address</label>
             <br />
             <Field
               name="shippingAddress"
               placeholder="Enter Shipping Address"
+              className="addresss"
             />
             <br />
-            <Field name="shippingState" placeholder="Enter Shipping State" />
+            <Field
+              name="shippingState"
+              placeholder="Enter Shipping State"
+              className="addresss"
+            />
           </div>
           <div class="checkout_grid">
             <label>Price Per Day: </label>
@@ -102,10 +135,12 @@ function FormFields({ singleProduct }) {
                 placeholder="End date"
               />
             </div>
+            <button type="submit" class="checkout-button">
+              Save
+            </button>
           </div>
         </div>
       )}
-      <button type="submit">Submit</button>
     </>
   );
 }

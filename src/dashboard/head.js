@@ -2,6 +2,7 @@ import React from "react";
 import "./dashboard.css";
 import SideBar from "./sideBar";
 import image from "../image/logo.png";
+import { Link } from "react-router-dom";
 const DashHead = ({ type }) => {
   const [show, setShow] = React.useState(false);
   const handleShow = () => {
@@ -18,7 +19,9 @@ const DashHead = ({ type }) => {
         </div>
 
         <div class="logo">
-          <img src={image} alt="" />
+          <Link to="/landing">
+            <img src={image} alt="" />
+          </Link>
         </div>
       </div>
 

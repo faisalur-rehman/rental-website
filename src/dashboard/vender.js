@@ -1,20 +1,32 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import "./dashboard.css";
 import { Link } from "react-router-dom";
 import useApi from "../hooks/useApi";
 import * as rentalApi from "../apis/schedule";
+import UpdateModal from "../Modal/UpdateModal";
 const Vender = () => {
-  const vendorRentHistory = useApi(rentalApi.getVendorRentHistory);
+  const [open, setOpen] = useState(false);
+  const [id, setId] = useState("");
+  const allProducts = useApi(rentalApi.getAllProducts);
   useEffect(() => {
-    async function fetchProduct() {
-      await vendorRentHistory.request();
+    async function fetchProducts() {
+      try {
+        await allProducts.request();
+      } catch (_) {
+        console.log("producrs error", allProducts.error);
+      }
     }
-    fetchProduct();
+    fetchProducts();
     //eslint-disable-next-line
   }, []);
+  // console.log("all", allProducts);
+  function handleModal(id) {
+    setId(id);
+    setOpen(true);
+  }
 
-  console.log("history data", vendorRentHistory.data);
-  console.log("history error", vendorRentHistory.error);
+  // console.log("history data", vendorRentHistory.data);
+  // console.log("history error", vendorRentHistory.error);
 
   return (
     <>
@@ -39,67 +51,49 @@ const Vender = () => {
               <div className="list_selecter">
                 <select className="form-control" name="state" id="maxRows">
                   <option value="5000">Show ALL Rows</option>
-                  <option value="5">5</option>
-                  <option value="10">10</option>
-                  <option value="15">15</option>
-                  <option value="20">20</option>
-                  <option value="50">50</option>
-                  <option value="70">70</option>
-                  <option value="100">100</option>
                 </select>
               </div>
               <div className="show_product">
                 <table id="table-id">
-                  <tr>
-                    <th>Product Name</th>
-                    <th>View Product</th>
-                    <th>Edit Detail</th>
-                    <th>Delete Product</th>
-                    <th>Availability</th>
-                  </tr>
-
-                  <tr>
-                    <td></td>
-                    <td>
-                      <Link>
-                        <i className="fas fa-eye"></i>
-                      </Link>
-                    </td>
-                    <td>
-                      <i className="fa fa-edit"></i>
-                    </td>
-                    <td>
-                      <Link>
-                        <i className="fas fa-trash-alt"></i>
-                      </Link>
-                    </td>
-                    <td></td>
-                  </tr>
+                  <tbody>
+                    <tr>
+                      <th>Product Name</th>
+                      <th>View Product</th>
+                      <th>Edit Detail</th>
+                      <th>Delete Product</th>
+                      <th>Availability</th>
+                    </tr>
+                    {allProducts.data &&
+                      allProducts.data.product.map((prod) => (
+                        <tr>
+                          <td></td>
+                          <td>
+                            <Link>
+                              <i className="fas fa-eye"></i>
+                            </Link>
+                          </td>
+                          <td>
+                            <i
+                              className="fa fa-edit"
+                              onClick={() => handleModal(prod._id)}
+                            ></i>
+                          </td>
+                          <td>
+                            <Link>
+                              <i className="fas fa-trash-alt"></i>
+                            </Link>
+                          </td>
+                          <td></td>
+                        </tr>
+                      ))}
+                  </tbody>
                 </table>
               </div>
-              {/* <div className="pagination-container">
-                <nav>
-                  <ul className="pagination">
-                    <li data-page="prev">
-                      <span>
-                        {" "}
-                        &lt; <span className="sr-only">(current)</span>
-                      </span>
-                    </li>
-
-                    <li data-page="next" id="prev">
-                      <span>
-                        {" "}
-                        &gt; <span className="sr-only">(current)</span>
-                      </span>
-                    </li>
-                  </ul>
-                </nav>
-              </div> */}
             </div>
           </div>
         </div>
       </div>
+      <UpdateModal open={open} handleClose={() => setOpen(false)} id={id} />
     </>
   );
 };

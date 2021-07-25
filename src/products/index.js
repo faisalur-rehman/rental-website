@@ -3,16 +3,16 @@ import Products from "./products";
 import OwlCarousel from "react-owl-carousel";
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import { products, featured } from "../variables";
+import { products } from "../variables";
 import * as rentalApi from "../apis/schedule";
 import useApi from "../hooks/useApi";
 
-const Index = () => {
-  const allProducts = useApi(rentalApi.getAllProducts);
+const Index = ({ searchedProducts }) => {
+  const allProducts = useApi(rentalApi.adminAllProducts);
   useEffect(() => {
     async function fetchProducts() {
       try {
-        allProducts.request();
+        await allProducts.request();
       } catch (_) {
         console.log("producrs error", allProducts.error);
       }
@@ -37,6 +37,29 @@ const Index = () => {
   });
   return (
     <>
+      {searchedProducts && (
+        <div className="our-latest-product" id="latest-product">
+          <div className="container">
+            <p>Searched Products</p>
+            <div className="list">
+              <ul className="sliderTwo">
+                <OwlCarousel
+                  className="container-fluid owl-theme"
+                  // items={4}
+                  loop={true}
+                  autoplay={true}
+                  nav
+                  responsive={state}
+                >
+                  {searchedProducts.map((pro) => {
+                    return <Products {...pro} key={pro._id} />;
+                  })}
+                </OwlCarousel>
+              </ul>
+            </div>
+          </div>
+        </div>
+      )}
       {products.map((product) => {
         return (
           <div className="our-latest-product" id="latest-product">
@@ -71,9 +94,9 @@ const Index = () => {
                       nav
                       responsive={state}
                     >
-                      {featured.map((pro, index) => {
+                      {/* {featured.map((pro, index) => {
                         return <Products {...pro} key={index} />;
-                      })}
+                      })} */}
                     </OwlCarousel>
                   )}
                 </ul>

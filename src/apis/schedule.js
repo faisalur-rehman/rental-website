@@ -48,3 +48,6 @@ export function getRenterRentHistory() {
 export function getAllRentHistory() {
   return api.get("/rental-history/admin-get", config);
 }
+export function searchProduct(data) {
+  return api.post("/product/search", { ...data }, config);
+}

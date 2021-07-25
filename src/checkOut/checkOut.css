@@ -64,19 +64,19 @@
   border-right: 2px solid dimgray;
 }
 
-.checkout .product .product-detail .quantity form {
+.checkout .product .product-detail .quantity {
   width: 100%;
   text-align: center;
   padding: 0px 25px;
 }
 
-.checkout .product .product-detail .quantity form label {
+.checkout .product .product-detail .quantity label {
   width: 100%;
   margin-bottom: 15px;
   display: block;
 }
 
-.checkout .product .product-detail .quantity form input {
+.checkout .product .product-detail .quantity input {
   width: 100%;
   text-align: center;
 }
@@ -258,10 +258,10 @@ width: 100%;*/
 .single_product .checkout_info .checkout_grid:last-child {
   border-right: none;
 }
-.single_product .checkout_info .checkout_grid form {
+.single_product .checkout_info .checkout_grid {
   text-align: center;
 }
-.single_product .checkout_info .checkout_grid form label {
+.single_product .checkout_info .checkout_grid label {
   display: block;
   padding-bottom: 10px;
 }
@@ -271,7 +271,7 @@ width: 100%;*/
   padding: 0px 5px;
 }
 
-.single_product .checkout_info .checkout_grid form .search-icon input {
+.single_product .checkout_info .checkout_grid .search-icon input {
   width: 100%;
   border: none;
   padding: 12px 0px 12px 0px;
@@ -286,7 +286,7 @@ width: 100%;*/
   font-weight: 600;
   margin-bottom: 10px;
 }
-.single_product .checkout_info .checkout_grid form strong {
+.single_product .checkout_info .checkout_grid strong {
   display: block;
   padding-bottom: 10px;
 }
@@ -316,11 +316,11 @@ width: 100%;*/
   width: 25%;
 } */
 
-.final_checkout .checkout-info form .payment_method {
+.final_checkout .checkout-info .payment_method {
   margin-bottom: 15px;
   text-align: left;
 }
-.final_checkout .checkout-info form .payment_method label {
+.final_checkout .checkout-info .payment_method label {
   padding: 0px 10px;
 }
 .final_checkout .checkout-info .price h4 {
@@ -349,7 +349,7 @@ width: 100%;*/
   .single_product .checkout_info {
     grid-template-columns: 45% 20% 35%;
   }
-  .single_product .checkout_info .checkout_grid form input {
+  .single_product .checkout_info .checkout_grid input {
     width: 100%;
   }
   .single_product .checkout_info .checkout_grid figure {
@@ -387,4 +387,9 @@ width: 100%;*/
   .single_product .checkout_info .checkout_grid:last-child {
     border-bottom: none;
   }
+}
+.addresss {
+  padding: 5px;
+  margin: 5px;
+  width: 100%;
 }

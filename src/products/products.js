@@ -2,6 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Products = (props) => {
+  console.log("props", props);
   return (
     <>
       <li>
@@ -11,7 +12,10 @@ const Products = (props) => {
           )}
           <Link to={`/ProductDetails/${props._id}`}>
             <figure>
-              <img src={props.image} alt="" />
+              <img
+                src={`https://multivendor-ecommerce-restapi.herokuapp.com/${props.image}`}
+                alt=""
+              />
             </figure>
           </Link>
           <div class="figcaption">

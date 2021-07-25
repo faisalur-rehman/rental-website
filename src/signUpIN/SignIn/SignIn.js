@@ -30,7 +30,7 @@ const SignIn = () => {
       {Object.keys(error).length > 0 && (
         <p
           style={{
-            width: "40%",
+            width: "35%",
             margin: "10px auto",
             color: "red",
             marginTop: 30,

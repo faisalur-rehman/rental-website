@@ -1,16 +1,19 @@
 import Header from "./header";
-import Products from "./products";
 import Footer from "./footer";
 import Head from "./signUpIN/head";
 import Dashboard from "./dashboard";
 import Foot from "./signUpIN/foot";
 // import CheckOut from "./checkOut";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import SignUp from "./signUpIN/SignUp/SignUp";
 import SignIn from "./signUpIN/SignIn/SignIn";
 import Profile from "./Profile/Profile";
 import SingleProduct from "./productsDetails/SingleProduct/SingleProduct";
 import Checkout from "./checkOut/Checkout";
+
+import StripeContainer from "./Stripe/StripeContainer";
+import "./App.css";
+
 function App() {
   return (
     <>
@@ -18,7 +21,7 @@ function App() {
         <Switch>
           <Route exact path="/landing">
             <Header />
-            <Products />
+            {/* <Products /> */}
             <Footer />
           </Route>
           <Route exact path="/">
@@ -52,6 +55,10 @@ function App() {
           </Route>
           <Route exact path="/dashboard/rent">
             <Dashboard type="renting" />
+          </Route>
+          <Route exact path="/stripe">
+            <Head />
+            <StripeContainer />
           </Route>
         </Switch>
       </Router>
