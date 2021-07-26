@@ -49,9 +49,14 @@ const Header = () => {
               ) : (
                 <>
                   {localStorage.getItem("isAdmin") === "false" ? (
-                    <li>
-                      <Link to="/dashboard/vender">Become Vendor</Link>
-                    </li>
+                    <>
+                      <li>
+                        <Link to="/dashboard/vender">Become Vendor</Link>
+                      </li>
+                      <li>
+                        <Link to="/dashboard/rent">Renting History</Link>
+                      </li>
+                    </>
                   ) : (
                     <li>
                       <Link to="/dashboard/admin">Goto Dashboard</Link>

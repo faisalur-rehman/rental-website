@@ -20,7 +20,7 @@ const Index = ({ searchedProducts }) => {
     fetchProducts();
     //eslint-disable-next-line
   }, []);
-  console.log("producrs", allProducts.data);
+  console.log("products", allProducts.data);
   const [state] = React.useState({
     0: {
       items: 1,

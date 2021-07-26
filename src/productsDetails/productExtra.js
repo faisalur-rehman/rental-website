@@ -5,7 +5,7 @@ import { socket } from "../apis/socket";
 import useSocketError from "../hooks/useSocketError";
 import * as rentalApi from "../apis/schedule";
 import useApi from "../hooks/useApi";
-import useRoomChat from "../hooks/useRoomChat";
+// import useRoomChat from "../hooks/useRoomChat";
 
 const ProductExtra = ({ productId, userId }) => {
   const singleProduct = useApi(rentalApi.getSingleProduct);
@@ -24,9 +24,6 @@ const ProductExtra = ({ productId, userId }) => {
   async function handleClick() {
     console.log("user token", window.localStorage.getItem("token"));
 
-    socket.emit("all-rooms", (allRooms) => {
-      console.log("all rooms", allRooms);
-    });
     socket.emit("create-room", { user: userId }, (newlyCreatedRoom) => {
       console.log("socket", newlyCreatedRoom);
       socket.emit("join-room", newlyCreatedRoom.id, (data) => {

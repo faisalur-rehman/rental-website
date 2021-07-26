@@ -117,13 +117,15 @@ const SideBar = ({ show, type, handleHide }) => {
             >
               <span>Add new product</span>
             </Link>
-          ) : (
+          ) : type === "admin" ? (
             <Link
               class={`btn non-active ${act.all && "active"}`}
               onClick={() => handleClick("all")}
             >
               <span>All Product</span>
             </Link>
+          ) : (
+            ""
           )}
 
           {type === "vender" ? (
@@ -149,7 +151,7 @@ const SideBar = ({ show, type, handleHide }) => {
       ) : (
         ""
       )}
-      {act.msg ? <Message /> : ""}
+      {act.msg && <Message type={type} />}
       {act.all ? <AdminAll handleClick={handleClick} /> : ""}
       {act.add ? (
         <>
