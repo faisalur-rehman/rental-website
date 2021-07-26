@@ -22,7 +22,7 @@ const CARD_OPTIONS = {
 };
 
 export default function PaymentForm() {
-  const [success, setSuccess] = useState(false);
+  const [success] = useState(false);
   const stripe = useStripe();
   const elements = useElements();
 
