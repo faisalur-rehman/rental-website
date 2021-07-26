@@ -1,5 +1,4 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
-import axios from "axios";
 import React, { useState } from "react";
 
 const CARD_OPTIONS = {
@@ -27,31 +26,33 @@ export default function PaymentForm() {
   const stripe = useStripe();
   const elements = useElements();
 
+  console.log("cs", localStorage.getItem("cs"));
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { error, paymentMethod } = await stripe.createPaymentMethod({
-      type: "card",
-      card: elements.getElement(CardElement),
+
+    const result = await stripe.confirmCardPayment(localStorage.getItem("cs"), {
+      payment_method: {
+        card: elements.getElement(CardElement),
+        billing_details: {
+          email: "email@gmail.com",
+        },
+      },
     });
 
-    if (!error) {
-      try {
-        const { id } = paymentMethod;
-        console.log("id", paymentMethod);
-        const response = await axios.post("http://localhost:4000/payment", {
-          amount: 1000,
-          id,
-        });
-
-        if (response.data.success) {
-          console.log("Successful payment");
-          setSuccess(true);
-        }
-      } catch (error) {
-        console.log("Error", error);
-      }
+    if (result.error) {
+      // Show error to your customer (e.g., insufficient funds)
+      console.log(result.error.message);
     } else {
-      console.log(error.message);
+      // The payment has been processed!
+      if (result.paymentIntent.status === "succeeded") {
+        console.log("Money is in the bank!");
+        // Show a success message to your customer
+        // There's a risk of the customer closing the window before callback
+        // execution. Set up a webhook or plugin to listen for the
+        // payment_intent.succeeded event that handles any business critical
+        // post-payment actions.
+      }
     }
   };
 

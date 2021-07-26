@@ -1,12 +1,12 @@
 import React, { useEffect } from "react";
 import useApi from "../hooks/useApi";
-import image from "../image/new-one.jpg";
 import * as rentalApi from "../apis/schedule";
 import { useParams } from "react-router-dom";
+
 const Product = () => {
   const singleProduct = useApi(rentalApi.getSingleProduct);
   const { id } = useParams();
-  console.log(("id", id));
+  // console.log(("id", id));
   useEffect(() => {
     async function fetchProduct() {
       await singleProduct.request(id);
@@ -15,7 +15,7 @@ const Product = () => {
     //eslint-disable-next-line
   }, []);
 
-  console.log("single", singleProduct.data);
+  // console.log("single", singleProduct.data);
 
   return (
     <>
@@ -24,7 +24,10 @@ const Product = () => {
           {singleProduct.data && (
             <div class="main">
               <figure>
-                <img src={image} alt="" />
+                <img
+                  src={`https://multivendor-ecommerce-restapi.herokuapp.com/${singleProduct.data.product.image}`}
+                  alt=""
+                />
               </figure>
 
               <div class="detail">

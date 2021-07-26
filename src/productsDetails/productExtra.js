@@ -1,7 +1,53 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
 import image from "../image/new-one.jpg";
-const ProductExtra = ({ productId }) => {
+import { socket } from "../apis/socket";
+import useSocketError from "../hooks/useSocketError";
+import * as rentalApi from "../apis/schedule";
+import useApi from "../hooks/useApi";
+import useRoomChat from "../hooks/useRoomChat";
+
+const ProductExtra = ({ productId, userId }) => {
+  const singleProduct = useApi(rentalApi.getSingleProduct);
+
+  // const { id } = useParams();
+  // console.log(("id", id));
+  useEffect(() => {
+    async function fetchProduct() {
+      await singleProduct.request(productId);
+    }
+    fetchProduct();
+    //eslint-disable-next-line
+  }, []);
+  console.log("single", singleProduct.data);
+  useSocketError();
+  async function handleClick() {
+    console.log("user token", window.localStorage.getItem("token"));
+
+    socket.emit("all-rooms", (allRooms) => {
+      console.log("all rooms", allRooms);
+    });
+    socket.emit("create-room", { user: userId }, (newlyCreatedRoom) => {
+      console.log("socket", newlyCreatedRoom);
+      socket.emit("join-room", newlyCreatedRoom.id, (data) => {
+        console.log("join room socket", data);
+      });
+    });
+
+    const createRoom = () => {
+      return new Promise((res, _) => {
+        socket.emit("create-room", { user: userId }, (data) => {
+          res(data);
+        });
+      });
+    };
+
+    const room = await createRoom();
+    socket.emit("join-room", room.id, (data) => {
+      console.log(data);
+    });
+  }
+
   return (
     <>
       <section id="produt-detail-extra">
@@ -16,10 +62,9 @@ const ProductExtra = ({ productId }) => {
                     <span>Center for the Cinematic Arts, Inc.</span>
                   </figcaption>
                 </figure>
-                <button>Message</button>
+                <button onClick={handleClick}>Message</button>
               </div>
             </div>
-
             <div class="cart-part">
               <div style={{ display: "flex", marginBottom: 10 }}>
                 {/* <div class="search-icon">

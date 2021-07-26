@@ -17,11 +17,12 @@ let initialValues = {
   availableDate: "",
 };
 export default function UpdateModal(props) {
-  const [image, setImage] = useState();
   const [, setValues] = useState();
+  const [response, setResponse] = useState("");
   const getSingleProduct = useApi(rentalApi.getSingleProduct);
   useEffect(() => {
     initialValues = {};
+    setResponse("");
     async function getData() {
       console.log("here");
       try {
@@ -43,21 +44,21 @@ export default function UpdateModal(props) {
 
   async function handleSubmit({ formValues }) {
     console.log("form", formValues);
-    let formData = new FormData();
-    image && formData.append("image", image);
-    formData.append("companyName", formValues.companyName);
-    formData.append("productTitle", formValues.productTitle);
-    formData.append("description", formValues.description);
-    formData.append("pricePerDay", formValues.pricePerDay);
-    formData.append("address", formValues.address);
-    formData.append("state", formValues.state);
-    formData.append("isAvailable", formValues.isAvailable);
-    formData.append("availableDate", formValues.availableDate);
-    formData.append("productId", props.id);
+    // let formData = new FormData();
+    // image && formData.append("image", image);
+    // formData.append("companyName", formValues.companyName);
+    // formData.append("productTitle", formValues.productTitle);
+    // formData.append("description", formValues.description);
+    // formData.append("pricePerDay", formValues.pricePerDay);
+    // formData.append("address", formValues.address);
+    // formData.append("state", formValues.state);
+    // formData.append("isAvailable", formValues.isAvailable);
+    // formData.append("availableDate", formValues.availableDate);
+    // formData.append("productId", props.id);
     try {
       const { data } = await axios.post(
         `https://multivendor-ecommerce-restapi.herokuapp.com/product/update`,
-        { productId: props.id },
+        { productId: props.id, ...formValues },
         {
           headers: {
             Authorization: localStorage.getItem("token"),
@@ -66,6 +67,7 @@ export default function UpdateModal(props) {
         }
       );
       console.log(data);
+      setResponse(data.message);
     } catch (error) {
       console.log(error.response);
     }
@@ -79,17 +81,14 @@ export default function UpdateModal(props) {
         aria-describedby="simple-modal-description"
       >
         <AppForm initialValues={initialValues} handleSubmit={handleSubmit}>
-          <FormFields setImage={setImage} />
+          <FormFields response={response} />
         </AppForm>
       </Modal>
     </div>
   );
 }
 
-function FormFields({ setImage }) {
-  function handleImage({ target }) {
-    setImage(target.files[0]);
-  }
+function FormFields({ response }) {
   return (
     <div class="add_product_box" id="new_product">
       <div class="product_container">
@@ -113,8 +112,6 @@ function FormFields({ setImage }) {
                 placeholder="Price Per Day"
               />
               <Field name="address" type="address" placeholder="Address" />
-              {/* <Field type="text" placeholder="Modal Number" />
-                  <Field name='' type="address" placeholder="Pick Up location" /> */}
             </div>
             <div class="inner_field">
               <Field
@@ -129,15 +126,9 @@ function FormFields({ setImage }) {
                 <Field name="isAvailable" type="checkbox" placeholder="City" />
                 <label>Available </label>
               </div>
-              <input
-                type="file"
-                name="fileToUpload"
-                id="picture"
-                class="select_product_img"
-                onChange={handleImage}
-              />
             </div>
           </div>
+          <p style={{ color: "white", marginLeft: 10 }}>{response}</p>
           <div class="submit_button">
             <button type="submit">Update Product</button>
           </div>

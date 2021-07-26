@@ -32,6 +32,8 @@ const Checkout = () => {
   if (paymentMethod) {
     history.push("/stripe");
   }
+  rentProduct.data &&
+    localStorage.setItem("cs", rentProduct.data.client_secret);
   return (
     <div>
       <CheckoutForm
@@ -39,6 +41,7 @@ const Checkout = () => {
         onSubmit={handleSubmit}
         totalDays={totalDays}
         setPaymentMethod={setPaymentMethod}
+        error={rentProduct.error}
       />
     </div>
   );

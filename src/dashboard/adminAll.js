@@ -1,8 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import useApi from "../hooks/useApi";
 import * as rentalApi from "../apis/schedule";
+import UpdateModal from "../Modal/UpdateModal";
 const AdminAll = ({ handleClick }) => {
+  const [open, setOpen] = useState(false);
+  const [id, setId] = useState("");
   const allProducts = useApi(rentalApi.adminAllProducts);
   useEffect(() => {
     async function fetchProduct() {
@@ -12,8 +15,10 @@ const AdminAll = ({ handleClick }) => {
     //eslint-disable-next-line
   }, []);
 
-  console.log("all retnal", allProducts.data);
-  console.log("all retnal error", allProducts.error);
+  function handleModal(id) {
+    setId(id);
+    setOpen(true);
+  }
 
   return (
     <>
@@ -45,30 +50,11 @@ const AdminAll = ({ handleClick }) => {
                         <th>Edit Detail</th>
                         <th>Delete Product</th>
                       </tr>
-
-                      {/* <tr>
-                        <td></td>
-                        <td>
-                          <Link onclick="view_product_detail()">
-                            <i class="fas fa-eye"></i>
-                          </Link>
-                        </td>
-                        <td>
-                          <Link onclick="edit_product()">
-                            <i class="fa fa-edit"></i>
-                          </Link>
-                        </td>
-                        <td>
-                          <Link>
-                            <i class="fas fa-trash-alt"></i>
-                          </Link>
-                        </td>
-                      </tr> */}
                       <tbody>
                         {allProducts.data &&
                           allProducts.data.product.map((prod) => (
                             <tr key={prod._id}>
-                              <td>{prod._id}</td>
+                              <td>{prod.productTitle}</td>
                               <td>
                                 <Link onclick="view_product_detail()">
                                   <i class="fas fa-eye"></i>
@@ -76,7 +62,10 @@ const AdminAll = ({ handleClick }) => {
                               </td>
                               <td>
                                 <Link onclick="edit_product()">
-                                  <i class="fa fa-edit"></i>
+                                  <i
+                                    class="fa fa-edit"
+                                    onClick={() => handleModal(prod._id)}
+                                  ></i>
                                 </Link>
                               </td>
                               <td>
@@ -95,6 +84,7 @@ const AdminAll = ({ handleClick }) => {
           </div>
         </section>
       </section>
+      <UpdateModal open={open} handleClose={() => setOpen(false)} id={id} />
     </>
   );
 };

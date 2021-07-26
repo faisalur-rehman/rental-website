@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "./checkOut.css";
-import image from "../image/new-one.jpg";
 import { useParams } from "react-router-dom";
 import useApi from "../hooks/useApi";
 import * as rentalApi from "../apis/schedule";
@@ -12,6 +11,7 @@ export default function CheckoutForm({
   onSubmit,
   totalDays,
   setPaymentMethod,
+  error,
 }) {
   const [payment, setPayment] = useState();
   const singleProduct = useApi(rentalApi.getSingleProduct);
@@ -29,8 +29,6 @@ export default function CheckoutForm({
     setPaymentMethod(payment);
   }
 
-  // console.log("single", singleProduct);
-  // console.log("totalDays", totalDays);
   return (
     <>
       <section class="single_product">
@@ -38,7 +36,7 @@ export default function CheckoutForm({
           <span>Shopping Cart:</span>
           {singleProduct.data && (
             <AppForm initialValues={initialValues} handleSubmit={onSubmit}>
-              <FormFields singleProduct={singleProduct.data} />
+              <FormFields singleProduct={singleProduct.data} error={error} />
             </AppForm>
           )}
         </div>
@@ -88,14 +86,17 @@ export default function CheckoutForm({
   );
 }
 
-function FormFields({ singleProduct }) {
+function FormFields({ singleProduct, error }) {
   return (
     <>
       {singleProduct && (
         <div className="checkout_info">
           <div className="checkout_grid product_img">
             <figure>
-              <img src={image} alt="" />
+              <img
+                src={`https://multivendor-ecommerce-restapi.herokuapp.com/${singleProduct.product.image}`}
+                alt=""
+              />
               <figcaption>
                 <p>{singleProduct.product.description}</p>
               </figcaption>
@@ -138,6 +139,7 @@ function FormFields({ singleProduct }) {
             <button type="submit" class="checkout-button">
               Save
             </button>
+            {error.data && error.data.message}
           </div>
         </div>
       )}

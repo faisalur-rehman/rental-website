@@ -21,9 +21,9 @@ const Products = (props) => {
           <div class="figcaption">
             <h3>{props.companyName}</h3>
             <span>Retail Price: ${props.pricePerDay}.00</span>
-            {/* <span>
-              Offer Price:<small>${offer}.00</small>
-            </span> */}
+            <span>
+              Available:<small>{props.isAvailable ? "Yes" : "No"}</small>
+            </span>
             <Link>
               <i class="icon-shopping-cart"></i>Add to cart
             </Link>

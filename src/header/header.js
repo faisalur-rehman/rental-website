@@ -7,6 +7,7 @@ const Header = () => {
   function handleLogout() {
     localStorage.removeItem("token");
     history.push("/");
+    window.location.reload();
   }
   return (
     <div className="header-bar">
@@ -47,9 +48,13 @@ const Header = () => {
                 </>
               ) : (
                 <>
-                  {localStorage.getItem("isAdmin") === "false" && (
+                  {localStorage.getItem("isAdmin") === "false" ? (
                     <li>
                       <Link to="/dashboard/vender">Become Vendor</Link>
+                    </li>
+                  ) : (
+                    <li>
+                      <Link to="/dashboard/admin">Goto Dashboard</Link>
                     </li>
                   )}
                   <li>
