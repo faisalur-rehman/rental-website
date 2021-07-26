@@ -10,8 +10,6 @@ import useApi from "../hooks/useApi";
 const ProductExtra = ({ productId, userId }) => {
   const singleProduct = useApi(rentalApi.getSingleProduct);
 
-  // const { id } = useParams();
-  // console.log(("id", id));
   useEffect(() => {
     async function fetchProduct() {
       await singleProduct.request(productId);
@@ -29,19 +27,6 @@ const ProductExtra = ({ productId, userId }) => {
       socket.emit("join-room", newlyCreatedRoom.id, (data) => {
         console.log("join room socket", data);
       });
-    });
-
-    const createRoom = () => {
-      return new Promise((res, _) => {
-        socket.emit("create-room", { user: userId }, (data) => {
-          res(data);
-        });
-      });
-    };
-
-    const room = await createRoom();
-    socket.emit("join-room", room.id, (data) => {
-      console.log(data);
     });
   }
 

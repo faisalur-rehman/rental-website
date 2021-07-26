@@ -6,21 +6,34 @@ import "./msg.css";
 const Index = () => {
   const [rooms, setRooms] = useState([]);
   const [message, setMessage] = useState("");
+  const [roomId, setRoomId] = useState("");
+  const [chatHistory, setChatHistory] = useState();
   useEffect(() => {
     socket.emit("all-rooms", (allRooms) => {
       console.log("all rooms", allRooms);
       setRooms(allRooms);
     });
   }, []);
-  function handleClick(index) {
-    console.log("index", index);
-    socket.emit("chat-history", index, (chatHistory) => {
+  function handleClick(id) {
+    setRoomId(id);
+    socket.emit("chat-history", id, (chatHistory) => {
       console.log("this is chat history", chatHistory);
+      setChatHistory(chatHistory);
     });
   }
 
   function handleSubmit(e) {
     e.preventDefault();
+    socket.emit("message-from-client", {
+      msg: message,
+      roomId: roomId,
+    });
+
+    socket.on("message-from-server", (newMsg) => {
+      console.log("new message from server", newMsg);
+      setChatHistory((prev) => ({ ...prev, chat: [...prev.chat, newMsg] }));
+    });
+    setMessage("");
   }
 
   return (
@@ -49,6 +62,20 @@ const Index = () => {
             </div>
             <div class="message_box">
               <div class="message_ul">
+                {chatHistory &&
+                  chatHistory.chat.map((chat) => (
+                    <div className="chat">
+                      <div className="user-icon">
+                        <i className="fas fa-user"></i>
+                      </div>
+                      <div className="chat-detail">
+                        <p className="username">
+                          {chatHistory[chat.user].name}
+                        </p>
+                        <p>{chat.message}</p>
+                      </div>
+                    </div>
+                  ))}
                 {/* <div class="receive">
                   <input placeholder="received message.." name="msg" readonly />
                 </div>
