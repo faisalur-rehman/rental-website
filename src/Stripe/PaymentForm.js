@@ -22,7 +22,7 @@ const CARD_OPTIONS = {
 };
 
 export default function PaymentForm() {
-  const [success] = useState(false);
+  const [message, setMessage] = useState("");
   const stripe = useStripe();
   const elements = useElements();
 
@@ -43,10 +43,11 @@ export default function PaymentForm() {
     if (result.error) {
       // Show error to your customer (e.g., insufficient funds)
       console.log(result.error.message);
+      setMessage(result.error.message);
     } else {
       // The payment has been processed!
       if (result.paymentIntent.status === "succeeded") {
-        console.log("Money is in the bank!");
+        setMessage("Money is in the bank!");
         // Show a success message to your customer
         // There's a risk of the customer closing the window before callback
         // execution. Set up a webhook or plugin to listen for the
@@ -58,24 +59,18 @@ export default function PaymentForm() {
 
   return (
     <>
-      {!success ? (
-        <form onSubmit={handleSubmit}>
-          <h3 className="text">Please Enter your Credit Card Details</h3>
-          <fieldset className="FormGroup">
-            <div className="FormRow">
-              <CardElement options={CARD_OPTIONS} />
-            </div>
-          </fieldset>
-          <button className="pay-btn">Pay</button>
-        </form>
-      ) : (
-        <div>
-          <h2>
-            You just bought a sweet spatula congrats this is the best decision
-            of you're life
-          </h2>
-        </div>
-      )}
+      <form onSubmit={handleSubmit}>
+        <h3 className="text">Please Enter your Credit Card Details</h3>
+        <fieldset className="FormGroup">
+          <div className="FormRow">
+            <CardElement options={CARD_OPTIONS} />
+          </div>
+        </fieldset>
+        <button className="pay-btn">Pay</button>
+        <p className="text" style={{ marginTop: 10 }}>
+          {message}
+        </p>
+      </form>
     </>
   );
 }

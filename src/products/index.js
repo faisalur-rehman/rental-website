@@ -7,6 +7,7 @@ import { products } from "../variables";
 import * as rentalApi from "../apis/schedule";
 import useApi from "../hooks/useApi";
 
+// window.location.reload();
 const Index = ({ searchedProducts }) => {
   const allProducts = useApi(rentalApi.adminAllProducts);
   useEffect(() => {

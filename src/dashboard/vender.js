@@ -66,7 +66,7 @@ const Vender = () => {
                     {allProducts.data &&
                       allProducts.data.product.map((prod) => (
                         <tr>
-                          <td></td>
+                          <td>{prod.productTitle}</td>
                           <td>
                             <Link>
                               <i className="fas fa-eye"></i>
@@ -83,7 +83,7 @@ const Vender = () => {
                               <i className="fas fa-trash-alt"></i>
                             </Link>
                           </td>
-                          <td></td>
+                          <td>{prod.isAvailable ? "Yes" : "No"}</td>
                         </tr>
                       ))}
                   </tbody>

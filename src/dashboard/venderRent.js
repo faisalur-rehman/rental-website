@@ -35,7 +35,6 @@ const VenderRent = ({ handleClick }) => {
                   <tr>
                     <th>Product Name</th>
                     <th>Renter Name</th>
-                    <th>Vender Name</th>
                     <th>Price</th>
                     <th>Renting Date</th>
                     <th>Returning Date</th>
@@ -44,9 +43,8 @@ const VenderRent = ({ handleClick }) => {
                     {vendorRentHistory.data &&
                       vendorRentHistory.data.rentalHistory.map((prod) => (
                         <tr key={prod._id}>
-                          <td>{prod._id}</td>
-                          <td>{prod.renterName}</td>
-                          <td>{prod.vendorName}</td>
+                          <td>{prod.productId.productTitle}</td>
+                          <td>{prod.renterId.name}</td>
                           <td>${prod.totalPrice}</td>
                           <td>
                             {new Date(prod.rentingDate).toLocaleDateString(

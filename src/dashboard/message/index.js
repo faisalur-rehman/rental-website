@@ -44,17 +44,17 @@ const Index = () => {
             <div class="client_list">
               <div class="ul_client_list">
                 {rooms.length > 0 &&
-                  rooms.map((cli) => {
+                  rooms.map((room) => {
                     return (
                       <div
                         className="single_client"
-                        onClick={() => handleClick(cli.id)}
+                        onClick={() => handleClick(room.id)}
                         style={{ display: "flex" }}
                       >
                         <figure>
                           <i className="fas fa-user"></i>
                         </figure>
-                        <span>{cli.opposedUser}</span>
+                        <span>{room.id}</span>
                       </div>
                     );
                   })}
