@@ -1,9 +1,30 @@
-import React from "react";
+import React, { useEffect } from "react";
 import logo from "../image/logo.png";
 import { Link, useHistory } from "react-router-dom";
 
+let count = 0;
 const Header = () => {
   const history = useHistory();
+  // if (window.localStorage) {
+  //   if (!localStorage.getItem("firstLoad")) {
+  //     localStorage["firstLoad"] = true;
+  //     window.location.reload();
+  //   } else localStorage.removeItem("firstLoad");
+  // }
+  useEffect(() => {
+    if (window.localStorage) {
+      if (!localStorage.getItem("firstLoad")) {
+        localStorage["firstLoad"] = true;
+        window.location.reload();
+      } else localStorage.removeItem("firstLoad");
+    }
+    ++count;
+    localStorage.setItem("count", count);
+    if (+localStorage.getItem("count") < 2) {
+      // window.location.reload();
+    }
+  }, []);
+
   function handleLogout() {
     localStorage.removeItem("token");
     history.push("/");
