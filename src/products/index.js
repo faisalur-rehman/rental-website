@@ -75,7 +75,6 @@ const Index = ({ searchedProducts }) => {
                   {product === "Our Latest Products" ? (
                     <OwlCarousel
                       className="container-fluid owl-theme"
-                      // items={3}
                       loop={true}
                       autoplay={true}
                       nav
@@ -107,11 +106,7 @@ const Index = ({ searchedProducts }) => {
                       autoplay={true}
                       nav
                       responsive={state}
-                    >
-                      {/* {featured.map((pro, index) => {
-                        return <Products {...pro} key={index} />;
-                      })} */}
-                    </OwlCarousel>
+                    ></OwlCarousel>
                   )}
                 </ul>
               </div>

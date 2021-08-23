@@ -8,10 +8,22 @@ const Vender = () => {
   const [open, setOpen] = useState(false);
   const [id, setId] = useState("");
   const allProducts = useApi(rentalApi.getAllProducts);
+  const profile = useApi(rentalApi.userProfile);
   useEffect(() => {
     async function fetchProducts() {
       try {
         await allProducts.request();
+      } catch (_) {
+        console.log("producrs error", allProducts.error);
+      }
+    }
+    fetchProducts();
+    //eslint-disable-next-line
+  }, []);
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        await profile.request();
       } catch (_) {
         console.log("producrs error", allProducts.error);
       }
@@ -34,7 +46,9 @@ const Vender = () => {
               <div className="total_income">
                 <div className="admin_income">
                   <h3>Total income</h3>
-                  <strong>$0</strong>
+                  <strong>
+                    ${profile.data && profile.data.balance.toFixed(2)}
+                  </strong>
                   <Link to="/stripe" className="submit_button">
                     <button
                       style={{ padding: 5, width: "100%", margin: "8px auto" }}

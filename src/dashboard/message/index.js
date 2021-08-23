@@ -70,72 +70,12 @@ const Index = () => {
                       </div>
                       <div className="chat-detail">
                         <p className="username">
-                          {chatHistory[chat.user].name}
+                          {/* {chatHistory[chat.user].name} */}
                         </p>
                         <p>{chat.message}</p>
                       </div>
                     </div>
                   ))}
-                {/* <div class="receive">
-                  <input placeholder="received message.." name="msg" readonly />
-                </div>
-                <div class="send">
-                  <input
-                    placeholder="send message.."
-                    name="msg"
-                    readonly
-                  ></input>
-                </div>
-                <div class="receive">
-                  <input placeholder="received message.." name="msg" readonly />
-                </div>
-                <div class="send">
-                  <input
-                    placeholder="send message.."
-                    name="msg"
-                    readonly
-                  ></input>
-                </div>
-                <div class="receive">
-                  <input placeholder="received message.." name="msg" readonly />
-                </div>
-                <div class="send">
-                  <input
-                    placeholder="send message.."
-                    name="msg"
-                    readonly
-                  ></input>
-                </div>
-                <div class="receive">
-                  <input placeholder="received message.." name="msg" readonly />
-                </div>
-                <div class="send">
-                  <input
-                    placeholder="send message.."
-                    name="msg"
-                    readonly
-                  ></input>
-                </div>
-                <div class="receive">
-                  <input placeholder="received message.." name="msg" readonly />
-                </div>
-                <div class="send">
-                  <input
-                    placeholder="send message.."
-                    name="msg"
-                    readonly
-                  ></input>
-                </div>
-                <div class="receive">
-                  <input placeholder="received message.." name="msg" readonly />
-                </div>
-                <div class="send">
-                  <input
-                    placeholder="send message.."
-                    name="msg"
-                    readonly
-                  ></input>
-                </div> */}
               </div>
               <form onSubmit={handleSubmit} class="form-container">
                 <input
