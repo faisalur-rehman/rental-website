@@ -4,15 +4,15 @@ import { Link } from "react-router-dom";
 import { Field } from "formik";
 import AppForm from "../../AppForm/AppForm";
 
-export default function SignUpForm({ initialValues, onSubmit }) {
+export default function SignUpForm({ initialValues, onSubmit, error }) {
   return (
     <AppForm initialValues={initialValues} handleSubmit={onSubmit}>
-      <FormFields />
+      <FormFields error={error} />
     </AppForm>
   );
 }
 
-function FormFields() {
+function FormFields({ error }) {
   return (
     <div class="signup-form">
       <div class="container-sign">
@@ -38,6 +38,9 @@ function FormFields() {
             <Link>Community Rules</Link>
           </label>
         </div>
+        <p style={{ color: "red", padding: 5 }}>
+          {error.data && error.data.message}
+        </p>
         <button type="submit">Join Now</button>
         {/* </form> */}
       </div>

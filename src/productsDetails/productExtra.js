@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import image from "../image/new-one.jpg";
 import { socket } from "../apis/socket";
 import useSocketError from "../hooks/useSocketError";
@@ -8,6 +8,8 @@ import useApi from "../hooks/useApi";
 // import useRoomChat from "../hooks/useRoomChat";
 
 const ProductExtra = ({ productId, userId }) => {
+  const history = useHistory();
+
   const singleProduct = useApi(rentalApi.getSingleProduct);
 
   useEffect(() => {
@@ -28,6 +30,7 @@ const ProductExtra = ({ productId, userId }) => {
         console.log("join room socket", data);
       });
     });
+    history.push("/dashboard/rent");
   }
 
   return (

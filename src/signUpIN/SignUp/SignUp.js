@@ -16,17 +16,22 @@ const initialValues = {
 const SignUp = () => {
   const history = useHistory();
 
-  const signUp = useApi(rentalApi.signUp);
+  const { error, request } = useApi(rentalApi.signUp);
 
   async function handleSubmit({ formValues }) {
     try {
-      await signUp.request(formValues);
+      const { data } = await request(formValues);
+      console.log(data);
       history.push("/");
     } catch (_) {}
   }
   return (
     <div>
-      <SignUpForm initialValues={initialValues} onSubmit={handleSubmit} />
+      <SignUpForm
+        initialValues={initialValues}
+        onSubmit={handleSubmit}
+        error={error}
+      />
     </div>
   );
 };

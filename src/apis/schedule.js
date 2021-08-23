@@ -1,4 +1,11 @@
-import { api } from "./index";
+// import { api } from "./index";
+import axios from "axios";
+
+// const DEV_URL = "http://localhost:8000/";
+const PROD_URL = "https://multivendor-ecommerce-restapi.herokuapp.com/";
+const api = axios.create({
+  baseURL: PROD_URL,
+});
 
 const config = {
   headers: {

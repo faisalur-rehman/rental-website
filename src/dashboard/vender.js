@@ -25,9 +25,6 @@ const Vender = () => {
     setOpen(true);
   }
 
-  // console.log("history data", vendorRentHistory.data);
-  // console.log("history error", vendorRentHistory.error);
-
   return (
     <>
       <div className="body">
@@ -37,14 +34,14 @@ const Vender = () => {
               <div className="total_income">
                 <div className="admin_income">
                   <h3>Total income</h3>
-                  <strong>$1.5</strong>
-                  <div className="submit_button">
+                  <strong>$0</strong>
+                  <Link to="/stripe" className="submit_button">
                     <button
                       style={{ padding: 5, width: "100%", margin: "8px auto" }}
                     >
                       Transfer
                     </button>
-                  </div>
+                  </Link>
                 </div>
               </div>
               <strong>All Product:</strong>

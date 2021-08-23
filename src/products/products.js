@@ -24,7 +24,7 @@ const Products = (props) => {
             <span>
               Available:<small>{props.isAvailable ? "Yes" : "No"}</small>
             </span>
-            <Link>
+            <Link to={`/ProductDetails/${props._id}`}>
               <i class="icon-shopping-cart"></i>Add to cart
             </Link>
           </div>

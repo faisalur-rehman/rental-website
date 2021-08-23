@@ -8,8 +8,9 @@ import VenderRent from "./venderRent";
 import "./dashboard.css";
 import { Link } from "react-router-dom";
 import AddNewProduct from "./addnew";
-
 import axios from "axios";
+import nProgress from "nprogress";
+
 const initialValues = {
   companyName: "",
   productTitle: "",
@@ -26,6 +27,7 @@ const SideBar = ({ show, type, handleHide }) => {
   const [response, setResponse] = useState("");
 
   async function handleSubmit({ formValues }) {
+    nProgress.start();
     let formData = new FormData();
     formData.append("image", image);
     formData.append("companyName", formValues.companyName);
@@ -47,6 +49,7 @@ const SideBar = ({ show, type, handleHide }) => {
           },
         }
       );
+      nProgress.done();
       console.log(data);
       setResponse(data.message);
     } catch (error) {
@@ -159,8 +162,8 @@ const SideBar = ({ show, type, handleHide }) => {
             initialValues={initialValues}
             onSubmit={handleSubmit}
             setImage={setImage}
+            response={response}
           />
-          <p style={{ width: "34%", margin: "auto" }}>{response}</p>
         </>
       ) : (
         ""

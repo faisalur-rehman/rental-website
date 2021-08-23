@@ -2,15 +2,20 @@ import React from "react";
 import { Field } from "formik";
 import AppForm from "../AppForm/AppForm";
 
-export default function AddNewProduct({ initialValues, onSubmit, setImage }) {
+export default function AddNewProduct({
+  initialValues,
+  onSubmit,
+  setImage,
+  response,
+}) {
   return (
     <AppForm initialValues={initialValues} handleSubmit={onSubmit}>
-      <FormFields setImage={setImage} />
+      <FormFields setImage={setImage} response={response} />
     </AppForm>
   );
 }
 
-function FormFields({ setImage }) {
+function FormFields({ setImage, response }) {
   function handleImage({ target }) {
     setImage(target.files[0]);
   }
@@ -62,6 +67,8 @@ function FormFields({ setImage }) {
               />
             </div>
           </div>
+          <p style={{ margin: "10px 20px", color: "white" }}>{response}</p>
+
           <div class="submit_button">
             <button type="submit">Add Product</button>
           </div>
