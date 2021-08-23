@@ -57,8 +57,8 @@ const Admin = () => {
                       allRentHistory.data.rentalHistory.map((prod) => (
                         <tr key={prod._id}>
                           <td>{prod._id}</td>
-                          <td>{prod.renterName}</td>
-                          <td>{prod.vendorName}</td>
+                          <td>{prod.renterId.name}</td>
+                          <td>{prod.vendorId.name}</td>
                           <td>${prod.totalPrice}</td>
                           <td>
                             {new Date(prod.rentingDate).toLocaleDateString(
