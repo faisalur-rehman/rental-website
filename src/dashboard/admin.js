@@ -3,12 +3,22 @@ import useApi from "../hooks/useApi";
 import * as rentalApi from "../apis/schedule";
 
 const Admin = () => {
+  const profile = useApi(rentalApi.userProfile);
   const allRentHistory = useApi(rentalApi.getAllRentHistory);
   useEffect(() => {
     async function fetchProduct() {
       await allRentHistory.request();
     }
     fetchProduct();
+    //eslint-disable-next-line
+  }, []);
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        await profile.request();
+      } catch (_) {}
+    }
+    fetchProducts();
     //eslint-disable-next-line
   }, []);
 
@@ -21,7 +31,9 @@ const Admin = () => {
               <div class="total_income">
                 <div class="admin_income">
                   <h3>Total income by Commission</h3>
-                  <strong>$1.5</strong>
+                  <strong>
+                    ${profile.data && profile.data.balance.toFixed(2)}
+                  </strong>
                 </div>
               </div>
               <strong>Renting History:</strong>

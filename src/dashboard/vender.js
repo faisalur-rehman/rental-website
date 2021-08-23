@@ -24,9 +24,7 @@ const Vender = () => {
     async function fetchProducts() {
       try {
         await profile.request();
-      } catch (_) {
-        console.log("producrs error", allProducts.error);
-      }
+      } catch (_) {}
     }
     fetchProducts();
     //eslint-disable-next-line
