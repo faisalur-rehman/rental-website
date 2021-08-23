@@ -47,12 +47,6 @@ const Header = () => {
         <div className="nav-bar">
           <div className="list">
             <ul>
-              <li>
-                <Link>
-                  <i class="fas fa-bars"></i>
-                </Link>
-              </li>
-
               {!localStorage.getItem("token") ? (
                 <>
                   <li>

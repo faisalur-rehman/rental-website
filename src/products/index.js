@@ -46,7 +46,7 @@ const Index = ({ searchedProducts }) => {
               <ul className="sliderTwo">
                 <OwlCarousel
                   className="container-fluid owl-theme"
-                  // items={4}
+                  // items={3}
                   loop={true}
                   autoplay={true}
                   nav
@@ -75,11 +75,24 @@ const Index = ({ searchedProducts }) => {
                   {product === "Our Latest Products" ? (
                     <OwlCarousel
                       className="container-fluid owl-theme"
-                      items={4}
+                      // items={3}
                       loop={true}
                       autoplay={true}
                       nav
-                      responsive={state}
+                      responsive={{
+                        0: {
+                          items: 1,
+                        },
+                        550: {
+                          items: 2,
+                        },
+                        750: {
+                          items: 3,
+                        },
+                        1000: {
+                          items: products.length >= 4 ? 4 : products.length + 1,
+                        },
+                      }}
                     >
                       {allProducts.data &&
                         allProducts.data.product.map((pro) => {
