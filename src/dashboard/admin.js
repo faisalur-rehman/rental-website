@@ -60,16 +60,8 @@ const Admin = () => {
                           <td>{prod.renterId.name}</td>
                           <td>{prod.vendorId.name}</td>
                           <td>${prod.totalPrice}</td>
-                          <td>
-                            {new Date(prod.rentingDate).toLocaleDateString(
-                              "en-GB"
-                            )}
-                          </td>
-                          <td>
-                            {new Date(prod.returningDate).toLocaleDateString(
-                              "en-GB"
-                            )}
-                          </td>
+                          <td>{new Date(prod.rentingDate).toDateString()}</td>
+                          <td>{new Date(prod.returningDate).toDateString()}</td>
                         </tr>
                       ))}
                   </tbody>
