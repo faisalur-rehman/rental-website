@@ -22,7 +22,6 @@ function App() {
         <Switch>
           <Route exact path="/landing">
             <Header />
-            {/* <Products /> */}
             <Footer />
           </Route>
           <Route exact path="/">

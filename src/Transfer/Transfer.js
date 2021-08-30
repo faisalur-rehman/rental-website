@@ -15,6 +15,7 @@ const Transfer = () => {
 
     try {
       const { data } = await request({ accountHolderName, accountNumber });
+      console.log("data", data);
       setTimeout(() => {
         history.push("/landing");
       }, 6000);
