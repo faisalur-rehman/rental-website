@@ -13,6 +13,7 @@ import Checkout from "./checkOut/Checkout";
 
 import StripeContainer from "./Stripe/StripeContainer";
 import "./App.css";
+import Transfer from "./Transfer/Transfer";
 
 function App() {
   return (
@@ -59,6 +60,11 @@ function App() {
           <Route exact path="/stripe">
             <Head />
             <StripeContainer />
+          </Route>
+          <Route exact path="/transfer">
+            <Head />
+            <Transfer />
+            {/* <StripeContainer /> */}
           </Route>
         </Switch>
       </Router>

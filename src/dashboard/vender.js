@@ -47,7 +47,7 @@ const Vender = () => {
                   <strong>
                     ${profile.data && profile.data.balance.toFixed(2)}
                   </strong>
-                  <Link to="/stripe" className="submit_button">
+                  <Link to="/transfer" className="submit_button">
                     <button
                       style={{ padding: 5, width: "100%", margin: "8px auto" }}
                     >

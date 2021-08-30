@@ -33,12 +33,12 @@ const Header = () => {
   return (
     <div className="header-bar">
       <div className="ul">
-        <div className="search hide">
+        {/* <div className="search hide">
           <form>
             <input type="search" />
             <i className="fas fa-search"></i>
           </form>
-        </div>
+        </div> */}
         <div className="logo">
           <Link to="/landing">
             <img src={logo} alt="" />

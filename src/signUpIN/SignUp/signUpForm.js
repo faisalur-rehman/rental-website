@@ -26,7 +26,7 @@ function FormFields({ error }) {
           <Field name="name" type="text" placeholder="Name" />
           <Field name="email" type="email" placeholder="Email" />
           <Field name="password" type="password" placeholder="Password" />
-          <Field name="number" placeholder="Number" />
+          <Field name="number" placeholder="Number" type="number" />
           <Field name="address" placeholder="Address" />
           <Field name="state" placeholder="State" />
         </div>

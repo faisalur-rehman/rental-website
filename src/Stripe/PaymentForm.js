@@ -39,6 +39,7 @@ export default function PaymentForm() {
         },
       },
     });
+    console.log("card", elements.getElement(CardElement));
 
     if (result.error) {
       // Show error to your customer (e.g., insufficient funds)

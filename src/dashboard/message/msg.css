@@ -44,9 +44,9 @@
   width: 100%;
 }
 
-.single_client figure {
+/* .single_client figure {
   width: 100%;
-}
+} */
 
 .single_client figure img {
   float: left;
@@ -725,16 +725,17 @@ border-color: #337ab7;*/
   color: #fff;
   width: 100%;
 }
-
+/* 
 .single_client figure {
   width: 100%;
-}
+} */
 
 .single_client figure img {
   float: left;
   width: 25%;
   border-radius: 50%;
   background: lightblue;
+  margin-right: 10px;
 }
 
 .single_client figure figcaption {

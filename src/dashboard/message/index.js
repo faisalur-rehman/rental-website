@@ -10,32 +10,48 @@ const Index = () => {
   const [chatHistory, setChatHistory] = useState();
   useEffect(() => {
     socket.emit("all-rooms", (allRooms) => {
-      console.log("all rooms", allRooms);
-      setRooms(allRooms);
+      console.log("all rooms", allRooms.allROoms);
+      setRooms(allRooms.allROoms);
     });
   }, []);
-  function handleClick(id) {
-    setRoomId(id);
-    socket.emit("chat-history", id, (chatHistory) => {
+  useEffect(() => {
+    socket.on("msg-from-server", (newMsg) => {
+      console.log("new message from server", newMsg);
+      setChatHistory((prev) => ({
+        ...prev,
+        chatHistory: [...prev.chatHistory, { ...newMsg }],
+      }));
+    });
+  }, []);
+  function handleClick(roomId) {
+    console.log("room id", roomId);
+    setRoomId(roomId);
+    socket.emit("chat-history", { roomId }, (chatHistory) => {
       console.log("this is chat history", chatHistory);
       setChatHistory(chatHistory);
     });
   }
 
   function handleSubmit(e) {
+    console.log("submit data");
     e.preventDefault();
-    socket.emit("message-from-client", {
-      msg: message,
+    socket.emit("msg-from-client", {
+      message: message,
       roomId: roomId,
     });
+    // socket.emit("chat-history", { roomId }, (chatHistory) => {
+    //   console.log("this is chat history", chatHistory);
+    //   setChatHistory({ ...chatHistory });
+    // });
 
-    socket.on("message-from-server", (newMsg) => {
-      console.log("new message from server", newMsg);
-      setChatHistory((prev) => ({ ...prev, chat: [...prev.chat, newMsg] }));
-    });
+    // socket.on("msg-from-server", (newMsg) => {
+    //   setChatHistory((prev) => ({
+    //     ...prev,
+    //     chatHistory: [...prev.chatHistory, { ...newMsg }],
+    //   }));
+    // });
     setMessage("");
   }
-
   return (
     <>
       <section class="message_window" id="message_window">
@@ -48,13 +64,13 @@ const Index = () => {
                     return (
                       <div
                         className="single_client"
-                        onClick={() => handleClick(room.id)}
+                        onClick={() => handleClick(room._id)}
                         style={{ display: "flex" }}
                       >
                         <figure>
                           <i className="fas fa-user"></i>
                         </figure>
-                        <span>{room.id}</span>
+                        <span>{room.opposedUserId.name}</span>
                       </div>
                     );
                   })}
@@ -63,32 +79,34 @@ const Index = () => {
             <div class="message_box">
               <div class="message_ul">
                 {chatHistory &&
-                  chatHistory.chat.map((chat) => (
+                  chatHistory.chatHistory.map((chat) => (
                     <div className="chat">
                       <div className="user-icon">
                         <i className="fas fa-user"></i>
                       </div>
                       <div className="chat-detail">
                         <p className="username">
-                          {/* {chatHistory[chat.user].name} */}
+                          {chatHistory[chat.userId].name}
                         </p>
                         <p>{chat.message}</p>
                       </div>
                     </div>
                   ))}
               </div>
-              <form onSubmit={handleSubmit} class="form-container">
-                <input
-                  placeholder="Type message.."
-                  value={message}
-                  onChange={({ target }) => setMessage(target.value)}
-                  name="msg"
-                  required
-                />
-                <button type="submit" class="btn">
-                  Send
-                </button>
-              </form>
+              {roomId && (
+                <form onSubmit={handleSubmit} class="form-container">
+                  <input
+                    placeholder="Type message.."
+                    value={message}
+                    onChange={({ target }) => setMessage(target.value)}
+                    name="msg"
+                    required
+                  />
+                  <button type="submit" class="btn">
+                    Send
+                  </button>
+                </form>
+              )}
             </div>
           </div>
         </div>

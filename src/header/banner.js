@@ -7,7 +7,7 @@ import useApi from "../hooks/useApi";
 import * as rentalApi from "../apis/schedule";
 const Banner = ({ setSearchedProducts }) => {
   const searchedProducts = useApi(rentalApi.searchProduct);
-  const [address, setAddress] = useState("");
+  const [companyName, setCompanyName] = useState("");
   const [state, setState] = useState("");
   const [startingDate, setStartingDate] = useState("");
   const [endingDate, setEndingDate] = useState("");
@@ -16,7 +16,7 @@ const Banner = ({ setSearchedProducts }) => {
     e.preventDefault();
     try {
       const { data } = await searchedProducts.request({
-        address,
+        companyName,
         state,
         startingDate,
         endingDate,
@@ -39,10 +39,10 @@ const Banner = ({ setSearchedProducts }) => {
           <form onSubmit={handleSubmit}>
             <div class="search-icon">
               <input
-                value={address}
-                onChange={({ target }) => setAddress(target.value)}
+                value={companyName}
+                onChange={({ target }) => setCompanyName(target.value)}
                 type="search"
-                placeholder="Address"
+                placeholder="Company Name"
               ></input>
               <i class="fas fa-search"></i>
             </div>

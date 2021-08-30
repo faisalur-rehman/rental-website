@@ -19,7 +19,7 @@ const Products = (props) => {
             </figure>
           </Link>
           <div class="figcaption">
-            <h3>{props.companyName}</h3>
+            <h3>{props.productTitle}</h3>
             <span>Retail Price: ${props.pricePerDay}.00</span>
             <span>
               Available:<small>{props.isAvailable ? "Yes" : "No"}</small>

@@ -58,3 +58,6 @@ export function getAllRentHistory() {
 export function searchProduct(data) {
   return api.post("/product/search", { ...data }, config);
 }
+export function transferMoney(data) {
+  return api.post("/user/transfer-payment", { ...data }, config);
+}

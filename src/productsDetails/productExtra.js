@@ -24,12 +24,16 @@ const ProductExtra = ({ productId, userId }) => {
   async function handleClick() {
     console.log("user token", window.localStorage.getItem("token"));
 
-    socket.emit("create-room", { user: userId }, (newlyCreatedRoom) => {
-      console.log("socket", newlyCreatedRoom);
-      socket.emit("join-room", newlyCreatedRoom.id, (data) => {
-        console.log("join room socket", data);
-      });
-    });
+    socket.emit(
+      "create-room",
+      { opposedUserId: userId },
+      (newlyCreatedRoom) => {
+        console.log("socket", newlyCreatedRoom);
+        socket.emit("join-room", newlyCreatedRoom.id, (data) => {
+          console.log("join room socket", data);
+        });
+      }
+    );
     history.push("/dashboard/rent");
   }
 

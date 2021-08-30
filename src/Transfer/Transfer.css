@@ -1,0 +1,24 @@
+.transfer-field {
+  width: 40%;
+  margin: auto;
+}
+.transfer-field input {
+  padding: 10px;
+  width: 80%;
+  margin: auto;
+}
+.transfer-field p {
+  margin: 10px 0;
+  font-size: 18px;
+  width: 85%;
+}
+.transfer-field button {
+  margin-top: 20px;
+  width: 80%;
+  padding: 10px;
+  cursor: pointer;
+  background-color: rgb(141, 206, 228);
+}
+.transfer-field div {
+  margin: 10px 0;
+}

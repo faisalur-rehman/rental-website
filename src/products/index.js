@@ -9,6 +9,7 @@ import useApi from "../hooks/useApi";
 
 // window.location.reload();
 const Index = ({ searchedProducts }) => {
+  console.log("searchedProduct", searchedProducts);
   const allProducts = useApi(rentalApi.adminAllProducts);
   useEffect(() => {
     async function fetchProducts() {
