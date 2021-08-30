@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import AddNewProduct from "./addnew";
 import axios from "axios";
 import nProgress from "nprogress";
+import close from "../image/close.png";
 
 const initialValues = {
   companyName: "",
@@ -84,7 +85,13 @@ const SideBar = ({ show, type, handleHide }) => {
     <>
       <section class={`side_bar ${show && "side_bar-show"}`}>
         <Link class="closebtn sidebar-btn">
-          <i onClick={handleHide} class="fas fa-times"></i>
+          <img
+            style={{ width: 40, height: 40, borderRadius: "50%" }}
+            src={close}
+            class="fas fa-bars"
+            onClick={handleHide}
+            alt=""
+          />
         </Link>
 
         <div class="dashboard_buttons" id="change_active">

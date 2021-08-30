@@ -3,6 +3,8 @@ import "./dashboard.css";
 import SideBar from "./sideBar";
 import image from "../image/logo.png";
 import { Link } from "react-router-dom";
+import svgImage from "../image/bar.png";
+
 const DashHead = ({ type }) => {
   const [show, setShow] = React.useState(false);
   const handleShow = () => {
@@ -15,7 +17,13 @@ const DashHead = ({ type }) => {
     <>
       <div class="dash-header-bar">
         <div class="dash-sidebar-btn">
-          <i class="fas fa-bars" onClick={handleShow}></i>
+          <img
+            style={{ width: 40, height: 40 }}
+            src={svgImage}
+            class="fas fa-bars"
+            onClick={handleShow}
+            alt=""
+          />
         </div>
 
         <div class="logo">
