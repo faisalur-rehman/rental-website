@@ -45,18 +45,35 @@ const Index = ({ searchedProducts }) => {
             <p>Searched Products</p>
             <div className="list">
               <ul className="sliderTwo">
-                <OwlCarousel
-                  className="container-fluid owl-theme"
-                  // items={3}
-                  loop={true}
-                  autoplay={true}
-                  nav
-                  responsive={state}
-                >
-                  {searchedProducts.map((pro) => {
-                    return <Products {...pro} key={pro._id} />;
-                  })}
-                </OwlCarousel>
+                {searchedProducts.length > 0 ? (
+                  <OwlCarousel
+                    className="container-fluid owl-theme"
+                    // items={3}
+                    loop={true}
+                    autoplay={true}
+                    nav
+                    responsive={{
+                      0: {
+                        items: 1,
+                      },
+                      550: {
+                        items: 2,
+                      },
+                      750: {
+                        items: 3,
+                      },
+                      1000: {
+                        items: products.length >= 4 ? 4 : products.length + 1,
+                      },
+                    }}
+                  >
+                    {searchedProducts.map((pro) => {
+                      return <Products {...pro} key={pro._id} />;
+                    })}
+                  </OwlCarousel>
+                ) : (
+                  <p>No product Found.</p>
+                )}
               </ul>
             </div>
           </div>

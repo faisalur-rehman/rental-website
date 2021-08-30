@@ -6,7 +6,7 @@ import Banner from "./banner";
 import Products from "../products";
 
 const Index = () => {
-  const [searchedProducts, setSearchedProducts] = useState([]);
+  const [searchedProducts, setSearchedProducts] = useState();
   console.log("searched", searchedProducts);
   return (
     <>
